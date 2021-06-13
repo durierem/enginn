@@ -1,0 +1,19 @@
+AllCops:
+    TargetRubyVersion: 3.0
+    NewCops: enable
+
+# LAYOUT
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent # default: special_inside_parentheses
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent # default: special_inside_parentheses
+
+Layout/LineLength:
+  Max: 80 # default: 120
+
+# STYLE
+
+Style/Documentation:
+  Enabled: false # default: true
