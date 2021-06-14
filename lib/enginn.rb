@@ -8,7 +8,9 @@ require_relative 'enginn/json'
 
 module Enginn
   class << self
-    # Public: Configure.
+    attr_accessor :config
+
+    # Public: Configure Enginn.
     #
     # Yields an Enginn::Config object.
     def configure(&block)
@@ -24,6 +26,8 @@ module Enginn
     #
     # Yields a Faraday::Connection object.
     def connect!(&block)
+      check_configuration
+
       connection = Faraday.new(url: @config.base_url, headers: {
         'Content-Type' => 'application/json',
         'Authorization' => "Bearer #{@config.api_token}"
@@ -47,6 +51,8 @@ module Enginn
     #
     # Returns a Hash reprensenting the API response.
     def request(method, resource, id: nil, attributes: nil)
+      check_configuration
+
       response = Enginn.connect! do |conn|
         conn.public_send(method, "#{resource}/#{id}") do |req|
           req.body = { resource.to_s.singularize => attributes }.to_json
@@ -54,6 +60,14 @@ module Enginn
       end
 
       JSON.safe_parse(response.body)
+    end
+
+    private
+
+    def check_configuration
+      raise Enginn::ConfigError, 'unconfigured' if @config.nil?
+      raise Enginn::ConfigError, 'missing @base_url in config' if @config.base_url.nil?
+      raise Enginn::ConfigError, 'missing @api_token in config' if @config.api_token.nil?
     end
   end
 end

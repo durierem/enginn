@@ -11,7 +11,12 @@ Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent # default: special_inside_parentheses
 
 Layout/LineLength:
-  Max: 80 # default: 120
+  Max: 100 # default: 120
+
+# METRICS
+
+Metrics/BlockLength:
+  Exclude: /spec/**/*
 
 # STYLE
 

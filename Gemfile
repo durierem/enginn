@@ -7,4 +7,6 @@ gem 'faraday', '~> 1.4'         # HTTP client
 
 group :test do
   gem 'rspec', '~> 3.0'
+  gem 'simplecov', require: false
+  gem 'webmock'
 end

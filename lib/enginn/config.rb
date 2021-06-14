@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
-class Config
-  attr_accessor :base_url, :api_token
+module Enginn
+  class ConfigError < StandardError
+  end
+
+  class Config
+    attr_accessor :base_url, :api_token
+  end
 end
