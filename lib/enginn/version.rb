@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
 module Enginn
-  VERSION = '0.1.0'
+  VERSION = begin
+    `git describe --always --tag 2> /dev/null`.chomp
+  rescue StandardError
+    'N/A'
+  end
 end
