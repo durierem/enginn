@@ -5,6 +5,7 @@ require 'faraday'
 
 require_relative 'enginn/config'
 require_relative 'enginn/json'
+require_relative 'enginn/version'
 
 module Enginn
   class << self
