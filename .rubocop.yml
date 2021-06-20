@@ -16,7 +16,8 @@ Layout/LineLength:
 # METRICS
 
 Metrics/BlockLength:
-  Exclude: /spec/**/*
+  Exclude:
+    - "spec/**/*"
 
 # STYLE
 
