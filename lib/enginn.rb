@@ -3,8 +3,14 @@
 require 'active_support/core_ext/string'
 require 'faraday'
 
+require_relative 'enginn/character'
+require_relative 'enginn/character_synthesis'
+require_relative 'enginn/color'
 require_relative 'enginn/config'
 require_relative 'enginn/json'
+require_relative 'enginn/project'
+require_relative 'enginn/test_synthesis'
+require_relative 'enginn/text'
 require_relative 'enginn/version'
 
 module Enginn
