@@ -13,10 +13,10 @@ RSpec.describe Enginn do
   end
 
   before do
-    stub_request(:get, "http://example.com/api/v1/colors/").with(headers: {
-        'Accept'=>'*/*',
-        'Authorization'=>'Bearer faketoken',
-        'Content-Type'=>'application/json',
+    stub_request(:get, 'http://example.com/api/v1/colors/').with(headers: {
+      'Accept' => '*/*',
+      'Authorization' => 'Bearer faketoken',
+      'Content-Type' => 'application/json'
     }).to_return(status: 200, headers: { 'Content-Type' => 'application/json' }, body: JSON.dump(
       status: 200, result: { id: 42, project_id: 66, name: 'white', code: '#ffffff' }
     ))
