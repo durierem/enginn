@@ -4,6 +4,6 @@ require_relative 'resource'
 
 module Enginn
   class CharacterSynthesis < Resource
-    resource 'characters_syntheses', only: %i[get post]
+    resource 'character_syntheses', only: %i[get post]
   end
 end
