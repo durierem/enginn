@@ -66,7 +66,7 @@ module Enginn
         end
       end
 
-      JSON.safe_parse(response.body, symbolize_names: true)
+      Enginn::JSON.safe_parse(response.body, symbolize_names: true)
     end
 
     private
