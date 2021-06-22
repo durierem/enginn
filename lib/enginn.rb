@@ -56,7 +56,7 @@ module Enginn
     #   request(:patch, 'colors', id: 12, attributes: { name: 'yellow' })
     #   request(:delete, 'colors', id: 12)
     #
-    # Returns a Hash reprensenting the API response.
+    # Returns a Hash with symbolized keys reprensenting the API response.
     def request(method, resource, id: nil, attributes: nil)
       check_configuration
 
@@ -66,7 +66,7 @@ module Enginn
         end
       end
 
-      JSON.safe_parse(response.body)
+      JSON.safe_parse(response.body, symbolize_names: true)
     end
 
     private

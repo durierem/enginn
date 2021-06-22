@@ -9,8 +9,9 @@ RSpec.describe JSON do
     end
 
     context 'when the given argument is parsable' do
-      it 'returns a hash representing the given JSON with symbolized keys' do
-        expect(JSON.safe_parse('{"foo": 1, "bar": "hello"}')).to eq(foo: 1, bar: 'hello')
+      it 'returns the same as JSON.parse' do
+        json = '{"foo": 1, "bar": "hello"}'
+        expect(JSON.safe_parse(json)).to eq(JSON.parse(json))
       end
     end
   end
