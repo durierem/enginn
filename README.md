@@ -19,12 +19,12 @@ Configure the base URL and your authentication token:
 require 'enginn'
 
 Enginn.configure do |config|
-  config.api_token = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+  config.api_token = 'xxxxxxxxxxxxxxxxxxxxxxxxxx'
   config.base_url  = 'https://example.com/api/v1'
 end
 ```
 
-Use the available RESTful wrapper classes for ease of life:
+Use the available RESTful wrapper classes for convenience:
 
 ```ruby
 Enginn::Character.get                                     # Get the list of characters
@@ -34,14 +34,14 @@ Enginn::Character.patch(id: 42, name: 'Obi-Wan Kenobi')   # Update a character's
 Enginn::Text.delete(66)                                   # Delete the text of ID 66
 ```
 
-Here is an exhaustive list of available classes and methods:
+Here is an exhaustive list of available wrapper classes and associated methods:
 
 Resource | Available methods
 -------- | -----------------
 `Character` | `get`, `post`, `patch`, `delete`
 `CharacterSynthesis` | `get`, `post`
 `Color` | `get`, `post`, `patch`, `delete`
-`Project` | `get`
+`Project` | `get`, `patch` (without param `id`)
 `TestSynthesis` | `post`
 `Text` | `get`, `patch`, `delete`
 
