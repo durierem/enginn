@@ -24,7 +24,7 @@ Enginn.configure do |config|
 end
 ```
 
-Use the available RESTful wrapper classes for convenience:
+Use the available resourceful wrapper classes for convenience:
 
 ```ruby
 Enginn::Character.get                                     # Get the list of characters
