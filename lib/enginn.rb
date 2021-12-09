@@ -20,9 +20,9 @@ module Enginn
     # Public: Configure Enginn.
     #
     # Yields an Enginn::Config object.
-    def configure(&block)
+    def configure
       @config ||= Config.new
-      block.call(@config)
+      yield(@config)
     end
 
     # Public: Open a connection to the API with the required headers.
@@ -32,7 +32,7 @@ module Enginn
     #   - Authorization: Bearer <your_token>
     #
     # Yields a Faraday::Connection object.
-    def connect!(&block)
+    def connect!
       check_configuration
 
       connection = Faraday.new(url: @config.base_url, headers: {
@@ -40,7 +40,7 @@ module Enginn
         'Authorization' => "Bearer #{@config.api_token}"
       })
 
-      block.call(connection)
+      yield(connection)
     end
 
     # Public: Send a request to the API with the given parameters.

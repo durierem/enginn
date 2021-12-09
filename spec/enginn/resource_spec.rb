@@ -17,8 +17,11 @@ RSpec.describe Enginn::Resource do
     end
 
     context 'with resource limitations' do
-      it 'defines only the selected resource methods' do
+      it 'defines the selected resource methods' do
         expect(FakeResourceLimited).to respond_to(:get)
+      end
+
+      it 'does not define the other methods' do
         expect(FakeResourceLimited).not_to respond_to(
           *Enginn::Resource::HTTP_VERBS.difference([:get])
         )

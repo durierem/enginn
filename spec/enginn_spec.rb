@@ -4,18 +4,18 @@ RSpec.describe Enginn do
   def set_config
     Enginn.configure do |config|
       config.base_url = 'http://example.com/api/v1'
-      config.api_token = 'faketoken'
+      config.api_token = '12345'
     end
   end
 
   after do
-    Enginn.config = nil
+    described_class.config = nil
   end
 
   before do
     stub_request(:get, 'http://example.com/api/v1/colors/').with(headers: {
       'Accept' => '*/*',
-      'Authorization' => 'Bearer faketoken',
+      'Authorization' => 'Bearer 12345',
       'Content-Type' => 'application/json'
     }).to_return(status: 200, headers: { 'Content-Type' => 'application/json' }, body: JSON.dump(
       status: 200, result: { id: 42, project_id: 66, name: 'white', code: '#ffffff' }
@@ -24,7 +24,7 @@ RSpec.describe Enginn do
 
   describe '.configure' do
     it 'yields a Config object' do
-      expect { |foo| Enginn.configure(&foo) }.to yield_with_args(Enginn::Config)
+      expect { |foo| described_class.configure(&foo) }.to yield_with_args(Enginn::Config)
     end
   end
 
@@ -32,18 +32,26 @@ RSpec.describe Enginn do
     context 'when the configuration is complete' do
       before { set_config }
 
-      it 'yields a preconfigured Faraday::Connection object' do
-        expect { |foo| Enginn.connect!(&foo) }.to yield_with_args(Faraday::Connection)
-        Enginn.connect! do |conn|
+      it 'yields a Faraday::Connection object' do
+        expect { |foo| described_class.connect!(&foo) }.to yield_with_args(Faraday::Connection)
+      end
+
+      it 'sets the Content-Type header' do
+        described_class.connect! do |conn|
           expect(conn.headers['Content-Type']).to eq('application/json')
-          expect(conn.headers['Authorization']).to eq('Bearer faketoken')
+        end
+      end
+
+      it 'sets the Authorization header' do
+        described_class.connect! do |conn|
+          expect(conn.headers['Authorization']).to eq('Bearer 12345')
         end
       end
     end
 
     context 'with missing configuration' do
       it 'raises an Enginn::ConfigError' do
-        expect { |foo| Enginn.connect!(&foo) }.to raise_error(Enginn::ConfigError)
+        expect { |foo| described_class.connect!(&foo) }.to raise_error(Enginn::ConfigError)
       end
     end
   end
@@ -51,7 +59,7 @@ RSpec.describe Enginn do
   describe '.request' do
     context 'with missing configuration' do
       it 'raises an Enginn::ConfigError' do
-        expect { Enginn.request(:get, 'colors') }.to raise_error(Enginn::ConfigError)
+        expect { described_class.request(:get, 'colors') }.to raise_error(Enginn::ConfigError)
       end
     end
 
@@ -59,7 +67,7 @@ RSpec.describe Enginn do
       before { set_config }
 
       it 'returns a Hash corresponding to the API response' do
-        expect(Enginn.request(:get, 'colors')).to eq(
+        expect(described_class.request(:get, 'colors')).to eq(
           status: 200, result: { id: 42, project_id: 66, name: 'white', code: '#ffffff' }
         )
       end
