@@ -1,3 +1,9 @@
+**DEPRECATION WARNING**
+
+This repo is read-only and not maintainted. It stays up for reference only.
+
+Use the [official wrapper](https://github.com/EnginnTechnologies/enginn-rb) instead.
+
 # Enginn
 
 A Ruby wrapper for the [Enginn API](https://app.enginn.tech/api/docs).
